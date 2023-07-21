@@ -1,0 +1,15 @@
+query singleProduct($id: String!) {
+  product(id: $id) {
+    id
+    key
+    productType{
+      name
+    }
+    masterData{
+      current{
+        name(locale:"en")
+        description(locale:"en")
+      }
+    }
+  }
+}

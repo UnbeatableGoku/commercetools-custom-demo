@@ -1,0 +1,24 @@
+query getProducts($limit: Int!, $offset: Int!, $sort: [String!]) {
+  products(limit: $limit, offset: $offset, sort: $sort) {
+    total
+    results {
+      id
+      masterData {
+        current {
+          name(locale: "en")
+        }
+        hasStagedChanges
+        staged {
+          name(locale: "en")
+        }
+        published
+      }
+      productType {
+        name
+      }
+      key
+      createdAt
+      lastModifiedAt
+    }
+  }
+}
