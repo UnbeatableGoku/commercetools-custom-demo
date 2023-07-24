@@ -16,6 +16,7 @@ const getRoleOptions = Object.keys(CHANNEL_ROLES).map((key) => ({
 
 const ChannelDetailsForm = (props) => {
   const intl = useIntl();
+
   const formik = useFormik({
     initialValues: props.initialValues,
     onSubmit: props.onSubmit,

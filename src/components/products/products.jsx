@@ -17,7 +17,6 @@ import { Switch, useHistory, useRouteMatch } from 'react-router';
 import { SuspendedRoute } from '@commercetools-frontend/application-shell';
 import ProductDetails from '../product-details/product-details';
 
-
 const Products = () => {
   const match = useRouteMatch();
   const { push } = useHistory();
@@ -25,7 +24,21 @@ const Products = () => {
   console.log(match,"this is match ");
 
   const [model,setModel]= useState(false)
-  const [checked,setChecked]=useState(false)
+  const [checked,setChecked]=useState([])
+
+  const handleCheckBox=(e,id)=>{
+    if(e){
+      checked.map((item)=>{
+        if(item.id!=id){
+            setChecked ([...checked,id])
+        }
+      })  
+    }
+    
+    else{
+      checked.filter((item)=>{setChecked(item.id!==id)})
+    }
+  }
   const { page, perPage } = usePaginationState();
   const tableSorting = useDataTableSortingState({ key: 'key', order: 'asc' });
   const {allProducts,error,loading}=useAllProductsFetcher({ page,
@@ -45,6 +58,7 @@ const Products = () => {
     {label:(
         <CheckboxInput
         value="foo-radio-value"
+        onChange={(event)=>console.log(event.currentTarget)}
         />
     ),shouldIgnoreRowClick:true,key:'checkBox'},
     { label: 'Product Name', key: 'name',isSortable:true},
@@ -60,11 +74,9 @@ const Products = () => {
       case 'checkBox':
       return<CheckboxInput
         value="foo-radio-value"
-        onChange={(event) => setChecked(!checked)}
-        isChecked={checked}
-        
-
-      >
+        onChange={(event) =>handleCheckBox(event.target.checked,item.id) }
+        isChecked={checked.includes(item.id)} 
+  > 
         
       </CheckboxInput>
 
@@ -104,6 +116,7 @@ const Products = () => {
 
   return (
     <Spacings.Stack scale='xl'>
+      {console.log("render")}
     <Text.Headline as="h2" intlMessage={messages.productTitle} />
     <div className={model?styles.model:''} >
       

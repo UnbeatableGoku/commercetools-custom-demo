@@ -1,15 +1,31 @@
 query singleProduct($id: String!) {
   product(id: $id) {
     id
+    skus
+    createdAt
+    lastModifiedAt
     key
-    productType{
-      name
-    }
-    masterData{
-      current{
-        name(locale:"en")
-        description(locale:"en")
+    masterData {
+      current {
+        nameAllLocales {
+          locale
+          value
+        }
+        descriptionAllLocales {
+          locale
+          value
+        }
+        categories {
+          id
+          nameAllLocales {
+            locale
+            value
+          }
+        }
       }
+      published
+      hasStagedChanges
+
     }
   }
 }

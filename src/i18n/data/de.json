@@ -23,6 +23,7 @@
     "productTitle.title": "Product Listing Page",
     "ProjectSwitcher.projectsLabel": "Your translated text here",
   "UserSettingsMenu.menuLabel": "Your translated text here",
-  "LocaleSwitcher.localesLabel":"translated"
+  "LocaleSwitcher.localesLabel":"translated",
+  "ProductDetails.labelTitle": "Product Name"
   }
   

@@ -30,6 +30,6 @@ export const useSingleProductFetcher = ({ id }) => {
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
   });
-
+  console.log(error);
   return { singleProduct: data?.product, error, loading };
 };

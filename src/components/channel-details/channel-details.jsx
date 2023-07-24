@@ -43,6 +43,9 @@ const ChannelDetails = (props) => {
   const showNotification = useShowNotification();
   const showApiErrorNotification = useShowApiErrorNotification();
   const channelDetailsUpdater = useChannelDetailsUpdater();
+  
+
+  //Handle Submit
   const handleSubmit = useCallback(
     async (formikValues, formikHelpers) => {
       const data = formValuesToDoc(formikValues);
@@ -83,6 +86,9 @@ const ChannelDetails = (props) => {
       showNotification,
     ]
   );
+
+
+  
 
   return (
     <ChannelsDetailsForm

@@ -67,7 +67,7 @@ export const useChannelDetailsUpdater = () => {
         },
         variables: {
           channelId: originalDraft.id,
-          version: originalDraft.version,
+          nextDraft: originalDraft.version,
           actions: createGraphQlUpdateActions(actions),
         },
       });

@@ -1874,6 +1874,42 @@
     prop-types "15.8.1"
     react-intl "^6.3.2"
 
+"@commercetools-uikit/collapsible-motion@16.5.0":
+  version "16.5.0"
+  resolved "https://registry.yarnpkg.com/@commercetools-uikit/collapsible-motion/-/collapsible-motion-16.5.0.tgz#2905ef3603768adf77a11c145f43c2d3c9b0fefa"
+  integrity sha512-nXl9HdlIByp1rwMhiPsf18dIafXl3hGlLANHLjYV+sg9lIUO1IWwTtWj+uDuKFxdG3C1xAW+7npBRx+eHm2A3A==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
+    "@babel/runtime-corejs3" "^7.20.13"
+    "@commercetools-uikit/hooks" "16.5.0"
+    "@commercetools-uikit/utils" "16.5.0"
+    "@emotion/react" "^11.10.5"
+    "@emotion/styled" "^11.10.5"
+    lodash "4.17.21"
+    prop-types "15.8.1"
+
+"@commercetools-uikit/collapsible-panel@^16.5.0":
+  version "16.5.0"
+  resolved "https://registry.yarnpkg.com/@commercetools-uikit/collapsible-panel/-/collapsible-panel-16.5.0.tgz#6595f640cc7650c2fe654848e9ccf31b147bdfd6"
+  integrity sha512-dc3+j2eUMTn1e7HhNzhZ3XW9Kki2ICafZx/Rkxu3/nfCHIm/wZomoD2zLQCEgP2XwIwM/cDtxKsgft65SoAxUA==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
+    "@babel/runtime-corejs3" "^7.20.13"
+    "@commercetools-uikit/accessible-button" "16.5.0"
+    "@commercetools-uikit/collapsible-motion" "16.5.0"
+    "@commercetools-uikit/constraints" "16.5.0"
+    "@commercetools-uikit/design-system" "16.5.0"
+    "@commercetools-uikit/hooks" "16.5.0"
+    "@commercetools-uikit/icons" "16.5.0"
+    "@commercetools-uikit/spacings" "16.5.0"
+    "@commercetools-uikit/text" "16.5.0"
+    "@commercetools-uikit/utils" "16.5.0"
+    "@emotion/react" "^11.10.5"
+    "@emotion/styled" "^11.10.5"
+    lodash "4.17.21"
+    prop-types "15.8.1"
+    react-intl "^6.3.2"
+
 "@commercetools-uikit/constraints@16.5.0", "@commercetools-uikit/constraints@^16.4.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/constraints/-/constraints-16.5.0.tgz#6fc67cac321154fd2a61c25fd106ba435421528e"
@@ -1931,7 +1967,7 @@
     "@emotion/styled" "^11.10.5"
     prop-types "15.8.1"
 
-"@commercetools-uikit/field-label@16.5.0":
+"@commercetools-uikit/field-label@16.5.0", "@commercetools-uikit/field-label@^16.5.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/field-label/-/field-label-16.5.0.tgz#9e88bb9751f67fc124ac71de6a22aa7003a57859"
   integrity sha512-XxtWAvKA5kGM1Ob9+9qpY4P4a9cp/OnNMu/avC2ofXBCAS2EkLC5ofMQYU07Pf5kARghLfrt0mJCRsnh3F1RAg==
@@ -2116,7 +2152,7 @@
     prop-types "15.8.1"
     react-intl "^6.3.2"
 
-"@commercetools-uikit/localized-text-input@16.5.0", "@commercetools-uikit/localized-text-input@^16.4.0":
+"@commercetools-uikit/localized-text-input@16.5.0", "@commercetools-uikit/localized-text-input@^16.5.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/localized-text-input/-/localized-text-input-16.5.0.tgz#c83dcfd01822e74d09accff3426022903ccd1d9d"
   integrity sha512-uJ9xI9WsWFzNR0ga6ADjxsAC5xi0/4oLWM4cl1ocNtzH8wExW6pFOWggKZK8tiTa+n6PcuFI3bc1CLyDtHbG5A==
@@ -2215,7 +2251,7 @@
     lodash "4.17.21"
     prop-types "15.8.1"
 
-"@commercetools-uikit/primary-button@^16.4.0":
+"@commercetools-uikit/primary-button@^16.4.0", "@commercetools-uikit/primary-button@^16.5.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/primary-button/-/primary-button-16.5.0.tgz#3c0a6be041faee2093e43453dd27292d05e6b81f"
   integrity sha512-+cmF4mY0bu4mCoaeuB/aGaacJ472CVaYiTVsu7Ifg2FzvsQ0HVEnPAQNib3zgAg3vuRG+iXnkNmt6DKkK05bsg==
@@ -2287,7 +2323,7 @@
     prop-types "15.8.1"
     react-intl "^6.3.2"
 
-"@commercetools-uikit/select-input@16.5.0", "@commercetools-uikit/select-input@^16.4.0":
+"@commercetools-uikit/select-input@16.5.0", "@commercetools-uikit/select-input@^16.4.0", "@commercetools-uikit/select-input@^16.5.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/select-input/-/select-input-16.5.0.tgz#f9d91183c4063928b3d045304527e055040c62f3"
   integrity sha512-wnrZJzAZRITmvUjwT11t9r0jxTdMIvgfu5BE+5BSzZ9AHwYB/ZqZre22rZC6QSTOugLaw4hRBeEZ2s+CZKuNBg==
@@ -10762,6 +10798,11 @@ react-from-dom@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/react-from-dom/-/react-from-dom-0.6.2.tgz#9da903a508c91c013b55afcd59348b8b0a39bdb4"
   integrity sha512-qvWWTL/4xw4k/Dywd41RBpLQUSq97csuv15qrxN+izNeLYlD9wn5W8LspbfYe5CWbaSdkZ72BsaYBPQf2x4VbQ==
+
+react-hook-form@^7.45.2:
+  version "7.45.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.45.2.tgz#c757f3d5e633ccb186443d57c10fc511df35721a"
+  integrity sha512-9s45OdTaKN+4NSTbXVqeDITd/nwIg++nxJGL8+OD5uf1DxvhsXQ641kaYHk5K28cpIOTYm71O/fYk7rFaygb3A==
 
 react-intl@^6.3.2, react-intl@^6.4.2:
   version "6.4.4"

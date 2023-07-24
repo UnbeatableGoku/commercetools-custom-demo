@@ -12,6 +12,7 @@
   "Channels.demoHint": "This page demonstrates how you can develop a component following some of the Merchant Center UX Guidelines and development best practices. For instance, fetching data using GraphQL, displaying data in a paginated table, writing functional tests, etc.",
   "Channels.noResults": "There are no channels available in this project.",
   "Channels.title": "Channels list",
+  "ProductDetails.labelTitle": "Product Name",
   "Welcome.cardChannelsContent": "Demo example to fetch some data using GraphQL and displaying it in a paginated table.",
   "Welcome.cardChannelsTitle": "Fetching channels",
   "Welcome.cardDesignSystemContent": "Explore the UI components to develop Custom Applications and learn more about the Design System.",
@@ -20,8 +21,5 @@
   "Welcome.cardDocumentationTitle": "Documentation",
   "Welcome.subtitle": "Welcome to Custom Applications! To get started, inspect the source code to get familiar with the setup, the folder structure, the development tools, etc. and read the README file for additional information.",
   "Welcome.title": "Develop applications for the Merchant Center",
-  "productTitle.title": "Product Listing Page",
-  "ProjectSwitcher.projectsLabel": "Your translated text here",
-  "UserSettingsMenu.menuLabel": "Your translated text here",
-  "LocaleSwitcher.localesLabel":"translated"
+  "productTitle.title": "Product Listing Page"
 }
