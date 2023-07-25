@@ -3,6 +3,7 @@ query getProducts($limit: Int!, $offset: Int!, $sort: [String!]) {
     total
     results {
       id
+      version
       masterData {
         current {
           name(locale: "en")

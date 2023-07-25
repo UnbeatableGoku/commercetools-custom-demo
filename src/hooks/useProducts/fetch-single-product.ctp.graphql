@@ -1,12 +1,13 @@
 query singleProduct($id: String!) {
   product(id: $id) {
     id
+    version
     skus
     createdAt
     lastModifiedAt
     key
     masterData {
-      current {
+      staged {
         nameAllLocales {
           locale
           value
@@ -25,7 +26,6 @@ query singleProduct($id: String!) {
       }
       published
       hasStagedChanges
-
     }
   }
 }

@@ -2,14 +2,11 @@ import CollapsiblePanel from '@commercetools-uikit/collapsible-panel';
 import Spacings from '@commercetools-uikit/spacings';
 import Text from '@commercetools-uikit/text';
 import LocalizedTextInput from '@commercetools-uikit/localized-text-input';
-import { useFormik } from 'formik';
-import { docToFormValues, formValuesToDoc } from './conversions';
 import FieldLabel from '@commercetools-uikit/field-label';
 import { WarningIcon } from '@commercetools-uikit/icons';
 import { defineMessage, FormattedMessage } from 'react-intl';
 import messages from './messages';
 import PrimaryButton from '@commercetools-uikit/primary-button';
-import { InformationIcon } from '@commercetools-uikit/icons';
 
 
 

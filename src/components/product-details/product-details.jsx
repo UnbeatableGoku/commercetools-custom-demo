@@ -13,25 +13,22 @@ import { useApplicationContext } from '@commercetools-frontend/application-shell
 import SelectInput from '@commercetools-uikit/select-input';
 import { useFormik } from 'formik';
 import Stamp from '@commercetools-uikit/stamp';
-
-
-
+import { useProductUpdater } from '../../hooks/useProducts/use-products';
+import { transformErrors } from '../channel-details/transform-errors';
 
 
 
 const ProductDetails = (props) => {
 
-
   const tabsModalState = useModalState()
   const match = useRouteMatch();
-
-  const params = useParams();
-    console.log(params);
   
-    const {singleProduct,error,loading}=useSingleProductFetcher({id:params.id})
-   
+  const params = useParams();
+  
+  const {singleProduct,error,loading}=useSingleProductFetcher({id:params.id})
+  const {execute}=useProductUpdater()
+    
 
-    console.log(singleProduct,"--------------------------------------singleProduct");
     const {dataLocale,projectLanguages}=useApplicationContext((context)=>
     ({
       dataLocale:context.dataLocale ?? '',
@@ -40,17 +37,26 @@ const ProductDetails = (props) => {
     )
     
     const initialValues=docToFormValues( singleProduct, projectLanguages)
-       
+
+      
+
+
       const formik= useFormik({
         initialValues:initialValues,
         onSubmit:async(formikValues)=>{
           const data=formValuesToDoc(formikValues)
           console.log(data,"this is data=------------------------");
-          alert(`name: ${data.name.en}`)
-        },
+          try {
+            await execute({
+              originalDraft:singleProduct,nextDraft:data
+            }) 
+          } catch (error) {
+        const transformedErrors = transformErrors(error);
+            console.log(transformedErrors);
+          }
+      },
         enableReinitialize: true,
       })
-      console.log(formik,"------------------------------formik ");
       
   if(error){
     console.log(error);
@@ -63,7 +69,7 @@ const ProductDetails = (props) => {
             <TabularModalPage  
               isOpen
               onClose={props.onClose||tabsModalState.closeModal}
-              title={singleProduct?.masterData?.current?.nameAllLocales[0]?.value}
+              title={singleProduct?.masterData?.staged?.nameAllLocales[0]?.value}
               formControls={
                 <SelectInput
                   name="status"

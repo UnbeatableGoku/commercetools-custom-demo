@@ -45,3 +45,18 @@ export const convertToActionData = (draft) => ({
   ...draft,
   name: transformLocalizedFieldToLocalizedString(draft.nameAllLocales || []),
 });
+
+export const checkStatusOfProducts = (products, type) => {
+  console.log(
+    products,
+    type,
+    'this is status type -------------------------------------------status type '
+  );
+  const filteredProducts = products.filter(
+    (product) => product.published !== type
+  );
+  if (filteredProducts.length < 1) {
+    return false;
+  }
+  return filteredProducts;
+};

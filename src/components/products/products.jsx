@@ -1,5 +1,5 @@
 import Text from '@commercetools-uikit/text';
-import { useAllProductsFetcher } from '../../hooks/useProducts/use-products';
+import { useAllProductsFetcher, useProductStatusUpdater } from '../../hooks/useProducts/use-products';
 import messages from "./messages"
 import Spacings from '@commercetools-uikit/spacings';
 import DataTable from '@commercetools-uikit/data-table';
@@ -11,11 +11,13 @@ import {
   usePaginationState,
   useDataTableSortingState,
 } from '@commercetools-uikit/hooks';
-import { useState } from 'react';
+import { useState, version } from 'react';
 import CheckboxInput from '@commercetools-uikit/checkbox-input';
 import { Switch, useHistory, useRouteMatch } from 'react-router';
 import { SuspendedRoute } from '@commercetools-frontend/application-shell';
 import ProductDetails from '../product-details/product-details';
+import SelectInput from '@commercetools-uikit/select-input';
+
 
 const Products = () => {
   const match = useRouteMatch();
@@ -25,30 +27,43 @@ const Products = () => {
 
   const [model,setModel]= useState(false)
   const [checked,setChecked]=useState([])
+  const [allChecked,setAllChecked]=useState(false)
+  const [selectStatus,setSelectStatus]=useState(null)
+  const {handleFilterProductStatus}=useProductStatusUpdater()
 
-  const handleCheckBox=(e,id)=>{
+
+  const handleCheckBox=(e,id,version,published)=>{
+    console.log(published,"this=================================publisheddsf");
     if(e){
-      checked.map((item)=>{
-        if(item.id!=id){
-            setChecked ([...checked,id])
-        }
-      })  
+       setChecked ([...checked,{id,version,published}])
     }
-    
     else{
-      checked.filter((item)=>{setChecked(item.id!==id)})
+      const items=checked.filter((item)=>
+      {if(item.id!==id){
+          return {id:item.id,version:item.version}        
+      }})
+       setChecked(items)
     }
   }
   const { page, perPage } = usePaginationState();
   const tableSorting = useDataTableSortingState({ key: 'key', order: 'asc' });
-  const {allProducts,error,loading}=useAllProductsFetcher({ page,
+  const {allProducts,error,loading,refetch}=useAllProductsFetcher({ page,
     perPage,
     tableSorting,})
 
-  console.log(error);
-  console.log(allProducts?allProducts.results:null);
+    console.log(checked,"this is ===========================checked");
 
- 
+    const handleAllProduct=(value)=>{
+        if(value ){
+         const newItems= allProducts.results.map((item)=>{
+          return  {id:item.id,version:item.version,published:item.masterData.published}
+        })
+         setChecked(newItems)
+        }
+        else{
+          setChecked([])
+        }
+    }
   const rows = [
     { id: 'parasite', title: 'Parasite', country: 'South Korea' },
     { id: 'portrait', title: 'Portrait of a Lady on Fire', country: 'France' },
@@ -58,7 +73,9 @@ const Products = () => {
     {label:(
         <CheckboxInput
         value="foo-radio-value"
-        onChange={(event)=>console.log(event.currentTarget)}
+        onChange={(event)=>{handleAllProduct(event.target.checked);setAllChecked(event.target.checked)}}
+        isChecked={allChecked}
+        isIndeterminate={checked.length>0 && checked.length<perPage.value  }
         />
     ),shouldIgnoreRowClick:true,key:'checkBox'},
     { label: 'Product Name', key: 'name',isSortable:true},
@@ -68,20 +85,24 @@ const Products = () => {
     { label:'Date Created',key:'createdAt',isSortable:true},
     { label:'Date Modified',key:'lastModifiedAt',isSortable:true}
   ];  
+
   const itemRenderer=(item,column)=>{
     switch(column.key){
-
       case 'checkBox':
       return<CheckboxInput
         value="foo-radio-value"
-        onChange={(event) =>handleCheckBox(event.target.checked,item.id) }
-        isChecked={checked.includes(item.id)} 
+        onChange={(event) =>handleCheckBox(event.target.checked,item.id,item.version,item.masterData.published) }
+        isChecked={checked.some(function(checkedItem){
+          if(checkedItem.id===item.id){
+            return true
+          }
+        })} 
   > 
         
       </CheckboxInput>
 
       case 'name':
-      return item.masterData.current.name;
+      return item.masterData.staged.name;
       
       case 'type':
       return item.productType.name
@@ -121,6 +142,18 @@ const Products = () => {
     <div className={model?styles.model:''} >
       
     </div>
+    <SelectInput 
+     name="form-field-name"
+     options={[
+      { value: true, label: 'Published',isDisabled:!checked.length>0 },
+      { value: false, label: 'Unpublished',isDisabled:!checked.length>0 },
+    ]}
+      isDisabled={false}
+      onChange={(event)=>{
+      setSelectStatus(event.target.value);
+      handleFilterProductStatus(checked,event.target.value,refetch,handleAllProduct,setAllChecked)
+}}
+/>
     {loading && <LoadingSpinner />}
 
     {allProducts?

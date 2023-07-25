@@ -5,7 +5,7 @@ export const docToFormValues = (singleProduct, languages) => ({
   name: LocalizedTextInput.createLocalizedString(
     languages,
     transformLocalizedFieldToLocalizedString(
-      singleProduct?.masterData?.current?.nameAllLocales ?? []
+      singleProduct?.masterData?.staged?.nameAllLocales ?? []
     )
   ),
   status: singleProduct?.masterData?.published
@@ -14,12 +14,12 @@ export const docToFormValues = (singleProduct, languages) => ({
       : 'published'
     : 'unpublished',
 
-    description:LocalizedTextInput.createLocalizedString(
-      languages,
-      transformLocalizedFieldToLocalizedString(
-        singleProduct?.masterData?.current?.descriptionAllLocales ?? []
-      )
-    ),
+  description: LocalizedTextInput.createLocalizedString(
+    languages,
+    transformLocalizedFieldToLocalizedString(
+      singleProduct?.masterData?.staged?.descriptionAllLocales ?? []
+    )
+  ),
 });
 
 export const formValuesToDoc = (formValues) => ({

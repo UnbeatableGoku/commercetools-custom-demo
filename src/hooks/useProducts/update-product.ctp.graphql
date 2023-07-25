@@ -1,0 +1,12 @@
+mutation updateProuduct(
+  $version: Long!
+  $id: String!
+  $actions: [ProductUpdateAction!]!
+) {
+  updateProduct(version: $version, actions: $actions, id: $id) {
+    masterData {
+      published
+    }
+    version
+  }
+}
