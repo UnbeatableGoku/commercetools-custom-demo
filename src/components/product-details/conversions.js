@@ -24,4 +24,5 @@ export const docToFormValues = (singleProduct, languages) => ({
 
 export const formValuesToDoc = (formValues) => ({
   name: LocalizedTextInput.omitEmptyTranslations(formValues.name),
+  description: LocalizedTextInput.omitEmptyTranslations(formValues.description),
 });

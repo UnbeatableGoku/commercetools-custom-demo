@@ -4,9 +4,32 @@ mutation updateProuduct(
   $actions: [ProductUpdateAction!]!
 ) {
   updateProduct(version: $version, actions: $actions, id: $id) {
-    masterData {
-      published
-    }
+    id
     version
+    skus
+    createdAt
+    lastModifiedAt
+    key
+    masterData {
+      staged {
+        nameAllLocales {
+          locale
+          value
+        }
+        descriptionAllLocales {
+          locale
+          value
+        }
+        categories {
+          id
+          nameAllLocales {
+            locale
+            value
+          }
+        }
+      }
+      published
+      hasStagedChanges
+    }
   }
 }

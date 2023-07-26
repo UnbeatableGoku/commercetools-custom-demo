@@ -2269,6 +2269,23 @@
     prop-types "15.8.1"
     react-intl "^6.3.2"
 
+"@commercetools-uikit/search-text-input@^16.5.0":
+  version "16.5.0"
+  resolved "https://registry.yarnpkg.com/@commercetools-uikit/search-text-input/-/search-text-input-16.5.0.tgz#b762a3d281224ab8048a5431a86b827a2a3d6c18"
+  integrity sha512-jG6cbvAUW48TfSTGLWFkwVrqU2R1HHrpvaXiOO/SKNtpZzKf2nUjnu7N/uQJpCKb3irODJqiGI0sV9ve+1+Zaw==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
+    "@babel/runtime-corejs3" "^7.20.13"
+    "@commercetools-uikit/constraints" "16.5.0"
+    "@commercetools-uikit/design-system" "16.5.0"
+    "@commercetools-uikit/icons" "16.5.0"
+    "@commercetools-uikit/input-utils" "16.5.0"
+    "@commercetools-uikit/secondary-icon-button" "16.5.0"
+    "@commercetools-uikit/utils" "16.5.0"
+    "@emotion/react" "^11.10.5"
+    "@emotion/styled" "^11.10.5"
+    prop-types "15.8.1"
+
 "@commercetools-uikit/secondary-button@^16.4.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/@commercetools-uikit/secondary-button/-/secondary-button-16.5.0.tgz#2de468421178eef3eda2bc1d1ab5f6ec3d722d16"

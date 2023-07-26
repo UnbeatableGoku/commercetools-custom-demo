@@ -1,0 +1,7 @@
+query productsId($text: String!) {
+  productProjectionSearch(staged: true, locale: "en", text: $text, limit: 20) {
+    results {
+      id
+    }
+  }
+}

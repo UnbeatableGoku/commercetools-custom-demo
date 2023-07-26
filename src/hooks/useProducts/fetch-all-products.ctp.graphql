@@ -1,5 +1,10 @@
-query getProducts($limit: Int!, $offset: Int!, $sort: [String!]) {
-  products(limit: $limit, offset: $offset, sort: $sort) {
+query getProducts(
+  $limit: Int!
+  $offset: Int!
+  $sort: [String!]
+  $searchKeyword: String
+) {
+  products(limit: $limit, offset: $offset, sort: $sort, where: $searchKeyword) {
     total
     results {
       id

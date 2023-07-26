@@ -1,9 +1,11 @@
 import {
+  useMcLazyQuery,
   useMcMutation,
   useMcQuery,
 } from '@commercetools-frontend/application-shell';
 import getProducts from './fetch-all-products.ctp.graphql';
 import singleProduct from './fetch-single-product.ctp.graphql';
+import productsId from './fetch-all-products-id.ctp.graphql';
 import updateProuduct from './update-product.ctp.graphql';
 import { GRAPHQL_TARGETS } from '@commercetools-frontend/constants';
 import {
@@ -12,14 +14,20 @@ import {
   createGraphQlUpdateActions,
   extractErrorFromGraphQlResponse,
 } from '../../helpers';
-import { createSyncChannels } from '@commercetools/sync-actions';
+import { createSyncProducts } from '@commercetools/sync-actions';
 
-export const useAllProductsFetcher = ({ page, perPage, tableSorting }) => {
+export const useAllProductsFetcher = ({
+  page,
+  perPage,
+  tableSorting,
+  searchKeyword,
+}) => {
   const { data, error, loading, refetch } = useMcQuery(getProducts, {
     variables: {
       limit: perPage.value,
       offset: (page.value - 1) * perPage.value,
       sort: [`${tableSorting.value.key} ${tableSorting.value.order}`],
+      searchKeyword,
     },
     context: {
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
@@ -30,7 +38,7 @@ export const useAllProductsFetcher = ({ page, perPage, tableSorting }) => {
 };
 
 export const useSingleProductFetcher = ({ id }) => {
-  const { data, error, loading } = useMcQuery(singleProduct, {
+  const { data, error, loading, refetch } = useMcQuery(singleProduct, {
     variables: {
       id,
     },
@@ -38,7 +46,12 @@ export const useSingleProductFetcher = ({ id }) => {
       target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
     },
   });
-  return { singleProduct: data?.product, error, loading };
+  return {
+    singleProduct: data?.product,
+    error,
+    loading,
+    singleProductRefetch: refetch,
+  };
 };
 
 export const useProductStatusUpdater = () => {
@@ -48,15 +61,16 @@ export const useProductStatusUpdater = () => {
   const handleFilterProductStatus = async (
     products,
     type,
-    refetch,
-    handleAllProduct,
-    setAllChecked
+    refetch = null,
+    handleAllProduct = null,
+    setAllChecked = null,
+    handleStatusNotification = null
   ) => {
     const filteredProducts = checkStatusOfProducts(products, type);
 
     if (filteredProducts) {
       const statusType =
-        type === true
+        type === 'published'
           ? [{ publish: { scope: 'All' } }]
           : [{ unpublish: { dummy: '' } }];
 
@@ -75,9 +89,10 @@ export const useProductStatusUpdater = () => {
         })
       );
       if (updatedProducts) {
-        refetch();
-        handleAllProduct(false);
-        setAllChecked(false);
+        refetch ? null : null;
+        handleAllProduct ? handleAllProduct(false) : null;
+        setAllChecked ? setAllChecked(false) : null;
+        handleStatusNotification ? handleStatusNotification(type) : null;
       }
       return updatedProducts;
     }
@@ -92,8 +107,12 @@ export const useProductStatusUpdater = () => {
 export const useProductUpdater = () => {
   const [updateProductDetails, { data, error }] = useMcMutation(updateProuduct);
 
-  const syncStores = createSyncChannels();
-  const execute = async ({ originalDraft, nextDraft }) => {
+  const syncStores = createSyncProducts();
+  const execute = async (
+    { originalDraft, nextDraft },
+    singleProductRefetch,
+    handleNotification
+  ) => {
     const actions = syncStores.buildActions(
       nextDraft,
       convertToActionData(originalDraft)
@@ -106,7 +125,7 @@ export const useProductUpdater = () => {
         originalDraft,
         'this is ==================================originalDraf'
       );
-      return await updateProductDetails({
+      const data = await updateProductDetails({
         variables: {
           id: originalDraft.id,
           version: originalDraft.version,
@@ -116,6 +135,11 @@ export const useProductUpdater = () => {
           target: GRAPHQL_TARGETS.COMMERCETOOLS_PLATFORM,
         },
       });
+      if (data) {
+        singleProductRefetch();
+        handleNotification();
+      }
+      return data;
     } catch (error) {
       console.log(error);
       throw extractErrorFromGraphQlResponse(error);
@@ -123,5 +147,21 @@ export const useProductUpdater = () => {
   };
   return {
     execute,
+  };
+};
+
+export const useFetchSearchItemsId = () => {
+  const [handleGetIdOfProducts, { data, error }] = useMcLazyQuery(productsId);
+
+  if (error) {
+    console.log(error);
+  }
+  const arrayOfId = data?.productProjectionSearch?.results?.map(
+    (item) => `"${item.id}"`
+  );
+  return {
+    handleGetIdOfProducts,
+    data,
+    arrayOfId,
   };
 };
