@@ -10,6 +10,7 @@ import updateProuduct from './update-product.ctp.graphql';
 import { GRAPHQL_TARGETS } from '@commercetools-frontend/constants';
 import {
   checkStatusOfProducts,
+  checkStatusOfSingleProduct,
   convertToActionData,
   createGraphQlUpdateActions,
   extractErrorFromGraphQlResponse,
@@ -59,6 +60,7 @@ export const useProductStatusUpdater = () => {
     useMcMutation(updateProuduct);
 
   const handleFilterProductStatus = async (
+    filtertype,
     products,
     type,
     refetch = null,
@@ -66,7 +68,10 @@ export const useProductStatusUpdater = () => {
     setAllChecked = null,
     handleStatusNotification = null
   ) => {
-    const filteredProducts = checkStatusOfProducts(products, type);
+    const filteredProducts =
+      filtertype === 'single'
+        ? checkStatusOfSingleProduct(products, type)
+        : checkStatusOfProducts(products, type);
 
     if (filteredProducts) {
       const statusType =

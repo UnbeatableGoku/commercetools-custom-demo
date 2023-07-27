@@ -56,20 +56,53 @@ export const convertToActionData = (draft) => ({
 });
 
 export const checkStatusOfProducts = (products, type) => {
-  const statusType = type !== 'unpublished' ? true : false;
   console.log(
     products,
     type,
-    statusType,
     'this is status type -------------------------------------------status type '
   );
 
-  const filteredProducts = products.filter(
-    (product) => product.published !== statusType
-  );
-  if (filteredProducts.length < 1) {
-    return false;
-  }
-  return filteredProducts;
+  const filteredProduct =
+    type === 'published'
+      ? products.filter(
+          (product) => product.published === false || product.modified === true
+        )
+      : products.filter((product) => product.published === true);
+
+  // console.log(filteredProduct, '============new logic array ');
+
+  // const filteredProductsTypePublished = products.filter((product) =>
+  //   type === 'published'
+  //     ? product.published === false
+  //       ? product.modified === true
+  //       : true
+  //     : false
+  // );
+
+  // const filteredProductsTypeUnpublished = products.filter((product) =>
+  //   type === 'unpublished' ? product.published === true : false
+  // );
+
+  // if (
+  //   filteredProductsTypePublished.length < 1 &&
+  //   filteredProductsTypeUnpublished.length < 1
+  // ) {
+  //   return false;
+  // }
+
+  // const filteredProducts =
+  //   type === 'published'
+  //     ? filteredProductsTypePublished
+  //     : filteredProductsTypeUnpublished;
+
+  return filteredProduct;
 };
-// "id in (\"cd9fd6e8-3757-49da-abd5-7e6ecb73b5b4\",\"45c3f938-0996-493f-b271-25bb59376dcc\")"
+
+export const checkStatusOfSingleProduct = (products, type) => {
+  const filteredProduct =
+    type === 'published'
+      ? products.filter((product) => product.masterData.published === false)
+      : products.filter((product) => product.masterData.published === true);
+
+  return filteredProduct;
+};

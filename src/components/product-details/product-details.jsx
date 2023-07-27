@@ -102,6 +102,7 @@ const ProductDetails = (props) => {
                 {
                   event.target.value !== 'modified'
                     ? handleFilterProductStatus(
+                        'single',
                         [singleProduct],
                         event.target.value,
                         singleProductRefetch,

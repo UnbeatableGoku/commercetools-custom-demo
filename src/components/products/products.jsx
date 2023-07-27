@@ -215,6 +215,7 @@ const Products = () => {
           onChange={(event) => {
             setSelectStatus(event.target.value);
             handleFilterProductStatus(
+              'bulk',
               checked,
               event.target.value,
               refetch,
