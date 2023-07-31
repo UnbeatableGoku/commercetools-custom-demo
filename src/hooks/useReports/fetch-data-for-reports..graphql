@@ -1,0 +1,15 @@
+query reportData($cartWhere: String, $orderWhere: String) {
+  carts(where: $cartWhere, limit: 500) {
+    total
+    results {
+      lastModifiedAt
+    }
+  }
+
+  orders(where: $orderWhere, limit: 500) {
+    total
+    results {
+      createdAt
+    }
+  }
+}
